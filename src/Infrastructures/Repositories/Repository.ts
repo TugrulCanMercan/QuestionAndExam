@@ -1,39 +1,70 @@
-import mongoose from "mongoose";
+import mongoose, {Model} from "mongoose";
+import {ExamModelI} from "../../Core/Model/RequestModel/ExamModel";
+import mongoDb from "mongoose";
+import model from "../../Core/Usecases/CreateExamUsecase";
+import examModel from "../Mongo-Model/examModel";
+//
+import  {IWrite,IRead} from "../../Core/Interfaces/RepositoryI";
 
 
-interface Read<T> {
-    retrieve: (callback: (error: any, result: any)=> void)=> void;
-    findById: (id: string, callback: (error:any, result: T) => void) => void;
+export default abstract class Repository<T> implements IWrite<T>,IRead<T>{
+
+    constructor(
+        public examModel:mongoose.Model<T>
+    ) {
+    }
+
+
+    async create(item: T){
+
+        await this.examModel.create(item,(err,res)=>{
+            if(err){
+                console.log(err)
+            }
+
+            console.log(res)
+        })
+
+    }
+
+    async delete(id: string): Promise<void> {
+        return Promise.resolve(undefined);
+    }
+
+    find(item: T): Promise<T[]> {
+        return Promise.resolve([]);
+    }
+
+    findOne(id: string): Promise<void> {
+        return Promise.resolve(undefined);
+    }
+
+    update(id: string, item: T): Promise<void> {
+        return Promise.resolve(undefined);
+    }
+
+
 }
-interface Write<T> {
-    create: (item:T, callback: (error: any, result: any ) => void) => void;
-    update:(_id: mongoose.Types.ObjectId, item:T, callback: (error: any, result: any)=> void) => void ;
-    delete: (_id: string, callback: (error: any, result: any) => void) => void;
-
-}
 
 
-class RepositoryBase<T extends mongoose.Document> implements Read<T>, Write<T> {
 
-    private _model: mongoose.Model<mongoose.Document>;
 
-    constructor(schemaModel: mongoose.Model<mongoose.Document>) {
-        this._model = schemaModel;
-    }
 
-    create(item: T, callback: (error: any, result: any) => void): void {
-    }
 
-    delete(_id: string, callback: (error: any, result: any) => void): void {
-    }
 
-    findById(id: string, callback: (error: any, result: T) => void): void {
-    }
-
-    retrieve(callback: (error: any, result: any) => void): void {
-    }
-
-    update(_id: mongoose.Types.ObjectId, item: T, callback: (error: any, result: any) => void): void {
-    }
-}
-
+// export default class BaseRepository<T>  {
+//
+//     constructor(
+//         public examModel:mongoose.Model<T>
+//     ) {
+//
+//     }
+//
+//     async create_func(item:T){
+//        this.examModel.create(item,(a,v)=>{
+//
+//        })
+//
+//     }
+//
+// }

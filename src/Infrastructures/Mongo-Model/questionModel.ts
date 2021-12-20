@@ -3,7 +3,7 @@ import {QuestionI, QuestionModelI, QuestionOptionsI} from "../../Core/Model/Requ
 
 
 
-const QuestionModel = new Schema<QuestionModelI>({
+const QuestionSchema = new Schema<QuestionModelI>({
     questionsCategory: String,
     questionsDifficultyRate: String,
     questionLikeRate: String,
@@ -18,5 +18,5 @@ const QuestionModel = new Schema<QuestionModelI>({
         })
     })
 })
-
-export default QuestionModel
+const QuestionModel = mongoDb.model<QuestionModelI>("Questions",QuestionSchema,"QuestionCollection")
+export {QuestionSchema,QuestionModel}

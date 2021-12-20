@@ -1,17 +1,27 @@
 import {QuestionModelI} from "../../Core/Model/RequestModel/QuestionModel";
+import Repository from "./Repository";
 
 
-export default class questionRepository{
-
-    constructor() {
-    }
-
-    async addQuestion(question:QuestionModelI){
-            await question.save()
-
-    }
+export default class QuestionRepository extends Repository<QuestionModelI>{
 
 }
+
+
+
+
+
+//
+// export default class questionRepository{
+//
+//     constructor() {
+//     }
+//
+//     async addQuestion(question:QuestionModelI){
+//             await question.save()
+//
+//     }
+//
+// }
 
 // return new Promise<string>((resolve,reject)=>{
 //     user.save().then(()=>{

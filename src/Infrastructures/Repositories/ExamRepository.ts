@@ -1,11 +1,10 @@
 import {ExamModelI} from "../../Core/Model/RequestModel/ExamModel";
 
 
-export default class ExamRepository{
-    constructor() {
-    }
+import Repository from "./Repository";
 
-    async addExam(exam:ExamModelI){
-        await exam.save()
-    }
+
+export default class ExamRepository extends Repository<ExamModelI>{
+
+
 }

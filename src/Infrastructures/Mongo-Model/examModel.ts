@@ -1,16 +1,17 @@
 import mongoDb, {Schema} from "mongoose";
 import {ExamModelI} from "../../Core/Model/RequestModel/ExamModel";
-import {QuestionModelI} from "../../Core/Model/RequestModel/QuestionModel";
-import questionModel from "./questionModel";
+import {QuestionSchema} from "./questionModel";
 
 
-const examModel = new Schema<ExamModelI>({
+
+
+const ExamSchema = new Schema<ExamModelI>({
     examTitle: String,
     examCategory:String,
     examStartTime:Date,
     examEndTime:Date,
-    examQuestions: [questionModel],
+    examQuestions:  [QuestionSchema],
     examTotalPoint:Number
 })
-
-export default examModel
+const ExamModel = mongoDb.model<ExamModelI>("Exams",ExamSchema,"ExamCollection")
+export default ExamModel
