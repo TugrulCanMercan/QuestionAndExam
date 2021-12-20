@@ -15,8 +15,8 @@ services:
 
 
   mongo:
-    container_name: microservice-mongo
     image: mongo
+    container_name: microservice-mongo
     restart: always
     command: mongod --port 27018
     ports:
@@ -24,6 +24,7 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: tugrul
       MONGO_INITDB_ROOT_PASSWORD: mercan
+
     networks:
       - some-net
 
@@ -34,13 +35,15 @@ services:
     ports:
       - 8081:8081
     environment:
-
+      ME_CONFIG_MONGODB_SERVER: mongo
       ME_CONFIG_BASICAUTH_USERNAME: tugrul
       ME_CONFIG_BASICAUTH_PASSWORD: mercan
       ME_CONFIG_MONGODB_PORT: 27018
       ME_CONFIG_MONGODB_ADMINUSERNAME: tugrul
       ME_CONFIG_MONGODB_ADMINPASSWORD: mercan
       ME_CONFIG_MONGODB_URL: mongodb://tugrul:mercan@mongo:27018/
+    depends_on:
+      - mongo
     networks:
       - some-net
 networks:

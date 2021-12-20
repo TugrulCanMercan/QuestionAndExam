@@ -15,16 +15,16 @@ export default abstract class Repository<T> implements IWrite<T>,IRead<T>{
     }
 
 
-    async create(item: T){
-
-        await this.examModel.create(item,(err,res)=>{
-            if(err){
-                console.log(err)
-            }
-
-            console.log(res)
+     async create(item: T):Promise<string>{
+        return new Promise((resolve, reject)=>{
+            this.examModel.create(item,(err,res)=>{
+                if(err){
+                    reject( `hata: ${err}`)
+                }else{
+                    resolve("Kayıt Başarılı")
+                }
+            })
         })
-
     }
 
     async delete(id: string): Promise<void> {

@@ -13,6 +13,6 @@ export default async (req: Request, examRepo: ExamRepository) => {
         examQuestions: req.body.examQuestions,
         examTotalPoint: req.body.examTotalPoint
     })
-    await examRepo.create(createExam)
+    return await examRepo.create(createExam)
 
 };
